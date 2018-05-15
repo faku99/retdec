@@ -25,5 +25,5 @@ if(MSVC AND CMAKE_SIZEOF_VOID_P MATCHES "4")
 	set_property(TARGET retdec-bin2llvmirtool APPEND_STRING PROPERTY LINK_FLAGS " /LARGEADDRESSAWARE")
 endif()
 
-set_target_properties(libbin2llvmir PROPERTIES OUTPUT_NAME "libbin2llvmir")
+set_target_properties(libbin2llvmir PROPERTIES OUTPUT_NAME "bin2llvmir")
 install(TARGETS libbin2llvmir LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
