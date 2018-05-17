@@ -16,7 +16,6 @@ add_subdirectory(dwarfparser)
 add_subdirectory(fileformat)
 add_subdirectory(fileinfo)
 add_subdirectory(idr2pat)
-add_subdirectory(libbin2llvmir)
 add_subdirectory(llvm-support)
 add_subdirectory(llvmir2hll)
 add_subdirectory(llvmir2hlltool)
@@ -35,6 +34,10 @@ add_subdirectory(getsig)
 
 if(RETDEC_TESTS)
 	add_subdirectory(llvmir-emul)
+endif()
+
+if(LIBBIN2LLVMIR)
+	add_subdirectory(libbin2llvmir)
 endif()
 
 if(RETDEC_DEV_TOOLS)
