@@ -1,7 +1,7 @@
 /**
  * @file src/pdbparser/pdb_file.cpp
  * @brief PDB file.
- * @copyright AVG Technologies s.r.o, All Rights Reserved
+ * @copyright (c) 2017 Avast Software, licensed under the MIT license
  */
 
 #include <cstdio>
@@ -43,11 +43,11 @@ PDBFileState PDBFile::load_pdb_file(const char *filename)
 	fseek(fp, 0, SEEK_SET);
 	pdb_file_data = new char[pdb_file_size]; // Allocate memory
 	size_t result = fread(pdb_file_data,1,pdb_file_size,fp); // Read the file
+	fclose(fp);
 	if (result != pdb_file_size)
 	{
 		return PDB_STATE_ERR_FILE_OPEN;
 	}
-	fclose(fp);
 
 	// Get the version of PDB file and parse it
 	pdb_header = reinterpret_cast<PDB_HEADER *>(pdb_file_data);
@@ -137,7 +137,7 @@ void PDBFile::initialize(int image_base)
 
 /**
  * Saves all streams into separate files.
- * File names consist of input pdb file name and extension .xxx as stream number
+ * File names consist of input PDB file name and extension .xxx as stream number
  * Can be called after load_pdb_file() was executed
  * @return Operation was successful
  */

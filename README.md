@@ -209,46 +209,31 @@ Docker support is maintained by community. If something does not work for you or
 
 ### Build Image
 
-Building in Docker does not require installation of required libraries locally. This is a good option for trying out RetDec without setting up the whole build toolchain.
+Building in Docker does not require installation of the required libraries locally. This is a good option for trying out RetDec without setting up the whole build toolchain.
 
-To build the RetDec docker image, run
+To build the RetDec Docker image, run
 ```
 docker build -t retdec .
 ```
 
-This builds the container from the master branch of this repository.
+This builds the image from the master branch of this repository.
 
-To build the container using the local copy of the repository, use the development Dockerfile, `Dockerfile.dev`:
+To build the image using the local copy of the repository, use the development Dockerfile, `Dockerfile.dev`:
 ```
 docker build -t retdec:dev . -f Dockerfile.dev
 ```
 
 ### Run Container
 
-To decompile a binary, create a container to upload the binary to:
+If your `uid` is not 1000, make sure that the directory containing your input binary files is accessible for RetDec:
 ```
-docker create --name retdec_init retdec
+chmod 0777 /path/to/local/directory
 ```
-
-Upload the binary (note the destination directory should be a directory with read/write permissions, such as `/home/retdec/`):
+Now, you can run the decompiler inside a container:
 ```
-docker cp <file> retdec_init:/destination/path/of/binary
+docker run --rm -v /path/to/local/directory:/destination retdec retdec-decompiler.sh /destination/binary
 ```
-
-Commit the copied files into the container image:
-```
-docker commit retdec_init retdec:initialized
-```
-
-Run the decompiler:
-```
-docker run --name retdec retdec:initialized retdec-decompiler.sh /destination/path/of/binary
-```
-
-Copy output back to host:
-```
-docker cp retdec:/destination/path/of/binary.c /path/to/save/file
-```
+Output files will be generated to the same directory (e.g. `/path/to/local/directory`).
 
 ## Repository Overview
 
