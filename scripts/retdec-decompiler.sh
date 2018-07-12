@@ -1101,7 +1101,7 @@ if [ "$MODE" = "bin" ] || [ "$MODE" = "raw" ]; then
 	# Check file class (e.g. "ELF32", "ELF64"). At present, we can only decompile 32-bit files.
 	# Note: we prefer to report the "unsupported architecture" error (above) than this "generic" error.
 	FILECLASS=$("$CONFIGTOOL" "$CONFIG" --read --file-class)
-	if [ "$FILECLASS" != "16" ] && [ "$FILECLASS" != "32" && [ "$FILECLASS" != "64" ]; then
+	if [ "$FILECLASS" != "16" ] && [ "$FILECLASS" != "32" ] && [ "$FILECLASS" != "64" ]; then
 		[ "$GENERATE_LOG" ] && generate_log
 		cleanup
 		print_error_and_die "Unsupported target format '${FORMAT^^}$FILECLASS'. Supported formats: ELF32, ELF64, PE32, PE64, Intel HEX 32, Mach-O 32."
