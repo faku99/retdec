@@ -59,8 +59,7 @@ bool Idioms::doInitialization(Module &M) {
  * @return always true
  */
 bool Idioms::doFinalization(Module &M) {
-	if (m_idioms)
-		delete m_idioms;
+	delete m_idioms;
 
 	return true;
 }
@@ -81,16 +80,6 @@ bool Idioms::runOnFunction(Function & f) {
 	 * Delegate to reflect architecture and compiler used.
 	 */
 	return m_idioms->doAnalysis(f, this);
-}
-
-/**
- * Info about idiom analysis passe dependency
- *
- * @param AU AnalysisUsage
- */
-void Idioms::getAnalysisUsage(AnalysisUsage &AU) const
-{
-
 }
 
 /**
@@ -143,7 +132,7 @@ IdiomsAnalysis * Idioms::getCompilerAnalysis(Module &M)
 	}
 
 	// Return initialized instruction idioms analyser.
-	return new IdiomsAnalysis(&M, m_config, i_cc, i_arch);
+	return new IdiomsAnalysis(&M, i_cc, i_arch);
 }
 
 } // namespace bin2llvmir

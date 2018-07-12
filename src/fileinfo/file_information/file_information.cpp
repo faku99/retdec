@@ -34,7 +34,7 @@ bool isSubpattern(const Pattern &a, const Pattern &b)
 		{
 			continue;
 		}
-		aCont.insert(AddressRange(res1, res1 + res2 - 1));
+		aCont.insert(AddressRange(res1, res1 + res2));
 	}
 
 	if(aCont.empty())
@@ -50,7 +50,7 @@ bool isSubpattern(const Pattern &a, const Pattern &b)
 		{
 			continue;
 		}
-		auto bRange = AddressRange(res1, res1 + res2 - 1);
+		auto bRange = AddressRange(res1, res1 + res2);
 		if(std::none_of(aCont.begin(), aCont.end(),
 			[&] (const auto &aRange)
 			{
@@ -941,6 +941,33 @@ bool FileInformation::hasImportTableRecords() const
 std::size_t FileInformation::getNumberOfStoredExports() const
 {
 	return exportTable.getNumberOfExports();
+}
+
+/**
+ * Get exphash as CRC32
+ * @return Exphash as CRC32
+ */
+std::string FileInformation::getExphashCrc32() const
+{
+	return exportTable.getExphashCrc32();
+}
+
+/**
+ * Get exphash as MD5
+ * @return Exphash as MD5
+ */
+std::string FileInformation::getExphashMd5() const
+{
+	return exportTable.getExphashMd5();
+}
+
+/**
+ * Get exphash as SHA256
+ * @return Exphash as SHA256
+ */
+std::string FileInformation::getExphashSha256() const
+{
+	return exportTable.getExphashSha256();
 }
 
 /**
@@ -2048,7 +2075,6 @@ std::size_t FileInformation::getNumberOfStoredSymbolsInTable(std::size_t positio
 	return symbolTables[position].getNumberOfStoredSymbols();
 }
 
-
 /**
  * Get number of symbols stored in symbol table
  * @param position Position of table in internal list of symbol tables (0..x)
@@ -2061,7 +2087,6 @@ std::string FileInformation::getNumberOfDeclaredSymbolsInTableStr(std::size_t po
 {
 	return symbolTables[position].getNumberOfDeclaredSymbolsStr();
 }
-
 
 /**
  * Get name of symbol table

@@ -460,6 +460,19 @@ void FileFormat::loadImpHash()
 }
 
 /**
+ * Loads exphash from export table.
+ */
+void FileFormat::loadExpHash()
+{
+	if (!exportTable || (loadFlags & LoadFlags::NO_VERBOSE_HASHES))
+	{
+		return;
+	}
+
+	exportTable->computeHashes();
+}
+
+/**
  * Getter for state of instance
  * @return @c true if all is OK, @c false otherwise
  */
@@ -1912,10 +1925,18 @@ bool FileFormat::setXBytes(std::uint64_t address, const std::vector<std::uint8_t
  * @param address Address to check
  * @return @c true if pointer on address, @c false otherwise
  */
-bool FileFormat::isPointer(unsigned long long address)
+bool FileFormat::isPointer(unsigned long long address, std::uint64_t* pointer) const
 {
 	std::uint64_t val = 0;
-	return getWord(address, val) && haveDataOnAddress(val);
+	if (getWord(address, val) && haveDataOnAddress(val))
+	{
+		if (pointer)
+		{
+			*pointer = val;
+		}
+		return true;
+	}
+	return false;
 }
 
 /**

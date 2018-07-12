@@ -707,7 +707,7 @@ void PeFormat::loadImports()
 
 	loadImpHash();
 
-	for (auto&& addressRange : formatParser->getImportDirectoryOccupiedAddresses())
+	for(auto&& addressRange : formatParser->getImportDirectoryOccupiedAddresses())
 	{
 		nonDecodableRanges.addRange(std::move(addressRange));
 	}
@@ -733,7 +733,9 @@ void PeFormat::loadExports()
 		exportTable->addExport(newExport);
 	}
 
-	for (auto&& addressRange : formatParser->getExportDirectoryOccupiedAddresses())
+	loadExpHash();
+
+	for(auto&& addressRange : formatParser->getExportDirectoryOccupiedAddresses())
 	{
 		nonDecodableRanges.addRange(std::move(addressRange));
 	}
@@ -1121,7 +1123,6 @@ void PeFormat::loadCertificates()
 	PKCS7_free(p7);
 	BIO_free(bio);
 }
-
 
 /**
  * Load .NET headers.

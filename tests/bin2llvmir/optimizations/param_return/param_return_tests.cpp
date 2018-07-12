@@ -63,9 +63,9 @@ TEST_F(ParamReturnTests, x86PtrCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
-
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -125,8 +125,9 @@ TEST_F(ParamReturnTests, x86PtrCallPrevBbIsUsedOnlyIfItIsASinglePredecessor)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -191,8 +192,9 @@ TEST_F(ParamReturnTests, x86PtrCallPrevBbIsNotUsedIfItIsNotASinglePredecessor)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -257,8 +259,9 @@ TEST_F(ParamReturnTests, x86PtrCallOnlyStackStoresAreUsed)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@eax = global i32 0
@@ -315,8 +318,9 @@ TEST_F(ParamReturnTests, x86PtrCallStackAreUsedAsArgumentsInCorrectOrder)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -384,8 +388,9 @@ TEST_F(ParamReturnTests, x86PtrCallOnlyContinuousStackOffsetsAreUsed)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -445,8 +450,9 @@ TEST_F(ParamReturnTests, x86ExternalCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		declare void @print(i32, i32)
@@ -527,8 +533,9 @@ TEST_F(ParamReturnTests, x86ExternalCallFixOnMultiplePlaces)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		declare void @print(i32, i32)
@@ -609,7 +616,7 @@ TEST_F(ParamReturnTests, x86ExternalCallFixOnMultiplePlaces)
 //		]
 //	})");
 //
-//	pass.runOnModuleCustom(*module, &config);
+//	pass.runOnModuleCustom(*module, &config, abi);
 //
 //	std::string exp = R"(
 //		declare void @print1()
@@ -666,8 +673,9 @@ TEST_F(ParamReturnTests, ppcPtrCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -719,8 +727,9 @@ TEST_F(ParamReturnTests, ppcExternalCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r3 = global i32 0
@@ -757,8 +766,9 @@ TEST_F(ParamReturnTests, ppcExternalCallDoNotUseObjectsIfTheyAreNotRegisters)
 			"name" : "powerpc"
 		}
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r3 = global i32 0
@@ -816,8 +826,9 @@ TEST_F(ParamReturnTests, ppcExternalCallFilterRegistersOnMultiplePlaces)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r3 = global i32 0
@@ -882,8 +893,9 @@ TEST_F(ParamReturnTests, ppcExternalCallDoNotUseAllRegisters)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r1 = global i32 0
@@ -942,8 +954,9 @@ TEST_F(ParamReturnTests, ppcExternalCallSortRegistersIntoCorrectOrder)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r3 = global i32 0
@@ -1003,8 +1016,9 @@ TEST_F(ParamReturnTests, ppcExternalCallDoNotUseStacksIfLessThan7RegistersUsed)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r3 = global i32 0
@@ -1115,8 +1129,9 @@ TEST_F(ParamReturnTests, ppcExternalCallUseStacksIf7RegistersUsed)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r3 = global i32 0
@@ -1195,8 +1210,9 @@ TEST_F(ParamReturnTests, armPtrCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -1248,8 +1264,9 @@ TEST_F(ParamReturnTests, armExternalCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r0 = global i32 0
@@ -1340,8 +1357,9 @@ TEST_F(ParamReturnTests, armExternalCallUseStacksIf4RegistersUsed)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r0 = global i32 0
@@ -1411,8 +1429,9 @@ TEST_F(ParamReturnTests, mipsPtrCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@r = global i32 0
@@ -1464,8 +1483,9 @@ TEST_F(ParamReturnTests, mipsExternalCallBasicFunctionality)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@a0 = global i32 0
@@ -1556,8 +1576,9 @@ TEST_F(ParamReturnTests, mipsExternalCallUseStacksIf4RegistersUsed)
 			}
 		]
 	})");
+	auto abi = AbiProvider::addAbi(module.get(), &config);
 
-	pass.runOnModuleCustom(*module, &config);
+	pass.runOnModuleCustom(*module, &config, abi);
 
 	std::string exp = R"(
 		@a0 = global i32 0

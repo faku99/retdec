@@ -22,7 +22,6 @@ namespace
 // Yara library pattern size limit.
 const std::size_t YARA_PATTERN_LIMIT = 4096;
 
-
 /**
  * Filter rules from file.
  *
@@ -114,7 +113,6 @@ void filterRulesFromFile(
 
 } // anonymous namespace
 
-
 /**
  * Validate user options.
  *
@@ -146,7 +144,6 @@ bool ProcessingOptions::validate(
 	return true;
 }
 
-
 /**
  * Process all input files.
  *
@@ -171,7 +168,7 @@ void processFiles(
 		if (firstFile) {
 			auto &originalRules = yaraFile->getRules();
 			if (!originalRules.empty()) {
-				fileBuilder.withRule(createArchitectureRule(originalRules[0]));
+				fileBuilder.withRule(createArchitectureRule(originalRules[0].get()));
 				firstFile = false;
 			}
 		}

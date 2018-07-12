@@ -57,8 +57,8 @@ Json::Value VtableItem::getJsonValue() const
 {
 	Json::Value val;
 
-	if (getAddress().isDefined()) val[JSON_address] = getAddress().getValue();
-	if (getTargetFunctionAddress().isDefined()) val[JSON_targetAddress] = getTargetFunctionAddress().getValue();
+	if (getAddress().isDefined()) val[JSON_address] = toJsonValue(getAddress());
+	if (getTargetFunctionAddress().isDefined()) val[JSON_targetAddress] = toJsonValue(getTargetFunctionAddress());
 	if (!getTargetFunctionName().empty()) val[JSON_targetName] = getTargetFunctionName();
 
 	return val;
@@ -117,7 +117,7 @@ bool VtableItem::operator<(const VtableItem& o) const
  */
 bool VtableItem::operator==(const VtableItem& o) const
 {
-	return getAddress() == getAddress();
+	return getAddress() == o.getAddress();
 }
 
 //
@@ -158,7 +158,7 @@ Json::Value Vtable::getJsonValue() const
 	Json::Value val;
 
 	if (!getName().empty()) val[JSON_name] = getName();
-	if (getAddress().isDefined()) val[JSON_address] = getAddress().getValue();
+	if (getAddress().isDefined()) val[JSON_address] = toJsonValue(getAddress());
 	if (!items.empty()) val[JSON_items] = items.getJsonValue();
 
 	return val;
@@ -201,7 +201,7 @@ bool Vtable::operator<(const Vtable& o) const
  */
 bool Vtable::operator==(const Vtable& o) const
 {
-	return getAddress() == getAddress();
+	return getAddress() == o.getAddress();
 }
 
 //

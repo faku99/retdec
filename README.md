@@ -2,6 +2,7 @@
 
 [![Travis CI build status](https://travis-ci.org/avast-tl/retdec.svg?branch=master)](https://travis-ci.org/avast-tl/retdec)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/avast-tl/retdec?branch=master&svg=true)](https://ci.appveyor.com/project/avast-tl/retdec?branch=master)
+[![TeamCity build status](https://retdec-tc.avast.com/app/rest/builds/aggregated/strob:(buildType:(project:(id:Retdec)))/statusIcon)](https://retdec-tc.avast.com/project.html?projectId=Retdec&guest=1)
 
 [RetDec](https://retdec.com/) is a retargetable machine-code decompiler based on [LLVM](https://llvm.org/).
 
@@ -25,21 +26,17 @@ Features:
 
 For more information, check out our
 * [Wiki](https://github.com/avast-tl/retdec/wiki) (in progress)
-* [Botconf 2017 talk](https://retdec.com/web/files/publications/retdec-slides-botconf-2017.pdf)
+* Botconf 2017 talk: [slides](https://retdec.com/web/files/publications/retdec-slides-botconf-2017.pdf), [video](https://www.youtube.com/watch?v=HHFvtt5b6yY)
+* REcon Montreal 2018 talk: [slides](https://retdec.com/web/files/publications/retdec-slides-recon-2018.pdf)
 * [Publications](https://retdec.com/publications/)
 
 ## Installation and Use
 
 Currently, we support only Windows (7 or later), Linux, and unofficially macOS.
 
-**Warning: Decompilations of larger binaries (1 MB or more) may require a lot of RAM. When running decompilations, we advise you to limit the maximal virtual memory for processes before decompiling to prevent potential swapping and unresponsiveness. On Linux, you can run e.g. `ulimit -Sv 9863168` in your shell to limit the maximal virtual memory to 8 GB.**
-
 ### Windows
 
-1. Either download and unpack a pre-built package from the following list, or build and install the decompiler by yourself (the process is described below):
-
-    * [32b Windows](https://github.com/avast-tl/retdec/releases/download/v3.0/retdec-v3.0-windows-32b.zip) (v3.0)
-    * [64b Windows](https://github.com/avast-tl/retdec/releases/download/v3.0/retdec-v3.0-windows-64b.zip) (v3.0)
+1. Either download and unpack a [pre-built package](https://github.com/avast-tl/retdec/releases), or build and install the decompiler by yourself (the process is described below):
 
 2. Install [Microsoft Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145).
 
@@ -193,7 +190,7 @@ Note: Although RetDec now supports a system-wide installation ([#94](https://git
   * `make install`
 
 You have to pass the following parameters to `cmake`:
-* `-DCMAKE_INSTALL_PREFIX=<path>` to set the installation path to `<path>`.
+* `-DCMAKE_INSTALL_PREFIX=<path>` to set the installation path to `<path>`. Quote the path if you are using backslashes on Windows (e.g. `-DCMAKE_INSTALL_PREFIX="C:\retdec"`).
 * (Windows only) `-G<generator>` is `-G"Visual Studio 14 2015"` for 32-bit build using Visual Studio 2015, or `-G"Visual Studio 14 2015 Win64"` for 64-bit build using Visual Studio 2015. Later versions of Visual Studio may be used.
 
 You can pass the following additional parameters to `cmake`:
@@ -294,7 +291,6 @@ This repository contains the following scripts:
 
 * [retdec-idaplugin](https://github.com/avast-tl/retdec-idaplugin) -- Embeds RetDec into IDA (Interactive Disassembler) and makes its use much easier.
 * [retdec-regression-tests-framework](https://github.com/avast-tl/retdec-regression-tests-framework) -- Provides means to run and create regression tests for RetDec and related tools. This is a must if you plan to contribute to the RetDec project.
-* [retdec-python](https://github.com/s3rvac/retdec-python) -- Python library and tools providing easy access to our online decompilation service through its [REST API](https://retdec.com/api/).
 * [vim-syntax-retdecdsm](https://github.com/s3rvac/vim-syntax-retdecdsm) -- Vim syntax-highlighting file for the output from the RetDec's disassembler (`.dsm` files).
 
 ## License

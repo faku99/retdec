@@ -116,6 +116,7 @@ class FileFormat : public retdec::utils::ByteValueStorage, private retdec::utils
 		void loadStrings(StringType type, std::size_t charSize);
 		void loadStrings(StringType type, std::size_t charSize, const SecSeg* secSeg);
 		void loadImpHash();
+		void loadExpHash();
 		bool isInValidState() const;
 		LoadFlags getLoadFlags() const;
 		/// @}
@@ -261,7 +262,7 @@ class FileFormat : public retdec::utils::ByteValueStorage, private retdec::utils
 		virtual bool getXBytes(std::uint64_t address, std::uint64_t x, std::vector<std::uint8_t> &res) const override;
 		virtual bool setXByte(std::uint64_t address, std::uint64_t x, std::uint64_t val, retdec::utils::Endianness e = retdec::utils::Endianness::UNKNOWN) override;
 		virtual bool setXBytes(std::uint64_t address, const std::vector<std::uint8_t> &val) override;
-		bool isPointer(unsigned long long address);
+		bool isPointer(unsigned long long address, std::uint64_t* pointer = nullptr) const;
 		/// @}
 
 		/// @name Offset interpretation methods
